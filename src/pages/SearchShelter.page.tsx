@@ -20,7 +20,7 @@ type SearchShelterCardProps = {
     title: string;
     children?: React.ReactNode;
     beds: number;
-    contactsArr: ContactType[];
+    contact: ContactType;
     petFriendly: boolean;
 };
 
@@ -28,7 +28,7 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({
     children,
     title,
     beds,
-    contactsArr,
+    contact,
     petFriendly,
 }) => {
     const [canDelete, setCanDelete] = React.useState(false);
@@ -47,14 +47,12 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({
                         Accepts animals: {petFriendly ? "Yes" : "No"}
                     </strong>
                     <div>
-                        <strong>Contacts:</strong>
+                        <strong>Contact: </strong>
                         <ul>
-                            {contactsArr?.map((contact) => (
-                                <li key={contact.id}>
-                                    <strong>{contact.type}</strong>
-                                    {contact.number}
-                                </li>
-                            ))}
+                            <li key={contact.id}>
+                                <strong>{contact.contactType}: </strong>
+                                {contact.number}
+                            </li>
                         </ul>
                     </div>
                 </Typography>
@@ -114,6 +112,12 @@ const SearchShelterPage: React.FC = () => {
         return <div>error</div>;
     }
 
+    const handleCountryChange = (event: any, country: string | null) => {
+        if (country) {
+            console.log(country);
+        }
+    };
+
     return (
         <ShelterPage>
             <Grid container direction="column">
@@ -128,7 +132,8 @@ const SearchShelterPage: React.FC = () => {
                     <Autocomplete
                         fullWidth
                         disablePortal
-                        options={[]}
+                        options={shelters.map((shelter) => shelter.country)}
+                        onChange={handleCountryChange}
                         renderInput={(params) => (
                             <TextField {...params} label="Country" />
                         )}
@@ -142,7 +147,7 @@ const SearchShelterPage: React.FC = () => {
                                 title={`${shelter.country} - ${shelter.city}`}
                                 beds={shelter.numberOfBeds}
                                 key={shelter.id}
-                                contactsArr={shelter.contactArr}
+                                contact={shelter.contact}
                                 petFriendly={shelter.petFriendly}
                             ></SearchShelterCard>
                         ))}

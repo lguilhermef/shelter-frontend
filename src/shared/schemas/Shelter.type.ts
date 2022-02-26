@@ -4,7 +4,7 @@ export type ShelterType = {
     id: number;
     country: string;
     city: string;
-    contactArr: ContactType[];
+    contact: ContactType;
     numberOfBeds: number;
     petFriendly: boolean;
 };
