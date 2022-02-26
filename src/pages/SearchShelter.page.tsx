@@ -8,7 +8,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
 import ShelterPage from "../shared/components/partials/ShelterPage.partial";
@@ -106,7 +106,7 @@ const SearchShelterPage: React.FC = () => {
         "shelters",
         async () => {
             const response = await axios.get(
-                "https://ukraineshelter-app.azurewebsites.net/shelter/list"
+                "https://ukraineshelter-app.azurewebsites.net/shelter/list?aCountry="
             );
 
             return response.data;
@@ -117,17 +117,13 @@ const SearchShelterPage: React.FC = () => {
     );
 
     const handleCountryChange = async (event: any, country: string | null) => {
-        if (country) {
-            /*  const response = await axios({
-                method: "get",
-                url: "https://ukraineshelter-app.azurewebsites.net/shelter/list-by-country",
-                headers: {
-                    "Content-Type": "text/plain",
-                },
-                data: country,
-            });
-            queryClient.setQueryData("shelters", response.data); */
-        }
+        const response = await axios({
+            method: "get",
+            url: `https://ukraineshelter-app.azurewebsites.net/shelter/list?${
+                country !== null ? "aCountry=" + country : "aCountry="
+            }`,
+        });
+        queryClient.setQueryData("shelters", response.data);
     };
 
     if (isFetching) {
@@ -137,6 +133,8 @@ const SearchShelterPage: React.FC = () => {
     if (!shelters || error) {
         return <div>error</div>;
     }
+
+    const countries = shelters.map((shelter) => shelter.country);
 
     return (
         <ShelterPage>
@@ -152,7 +150,7 @@ const SearchShelterPage: React.FC = () => {
                     <Autocomplete
                         fullWidth
                         disablePortal
-                        options={shelters.map((shelter) => shelter.country)}
+                        options={countries}
                         onChange={handleCountryChange}
                         renderInput={(params) => (
                             <TextField {...params} label="Country" />
