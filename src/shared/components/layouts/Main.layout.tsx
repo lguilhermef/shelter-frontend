@@ -56,7 +56,7 @@ const MainLayout: React.FC = ({ children }) => {
                             alt="logo"
                             style={{ marginRight: "10px" }}
                         />
-                        <AppBarTitle>ShelterUkrainians</AppBarTitle>
+                        <AppBarTitle>Shelter Ukrainians</AppBarTitle>
                         <Button
                             onClick={() => {
                                 navigate("search-shelter");
