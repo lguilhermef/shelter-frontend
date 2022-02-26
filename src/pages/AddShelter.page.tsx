@@ -82,7 +82,7 @@ const AddShelter: React.FC = () => {
                 <br />
                 <Grid item>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox />} label="Accept animals transportation" />
+                        <FormControlLabel control={<Checkbox />} label="Accept animals" />
                     </FormGroup>
                 </Grid>
                 <br />

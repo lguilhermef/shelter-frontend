@@ -29,6 +29,7 @@ const MainLayout: React.FC = ({children}) => {
             <AppBar sx={{ backgroundColor: "white" }} color="transparent" position="relative">
                 <Container>
                     <Toolbar>
+                        <img height={60} src="/ShelterUkranians_logo.png" alt="" />
                         <AppBarTitle>ShelterUkranians</AppBarTitle>
                         <Button onClick={ () => { navigate("search-shelter"); }}
                             sx={{ marginRight: "10px"}}
