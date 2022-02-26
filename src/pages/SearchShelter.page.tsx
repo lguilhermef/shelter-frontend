@@ -9,12 +9,14 @@ import {
     Typography,
 } from "@mui/material";
 import React from "react";
-import { useFetch } from "../hooks/useFetch";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
 import ShelterPage from "../shared/components/partials/ShelterPage.partial";
 import { ContactType } from "../shared/schemas/Contact.type";
 import { ShelterType } from "../shared/schemas/Shelter.type";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { queryClient } from "../services/queryClient";
 
 type SearchShelterCardProps = {
     title: string;
@@ -100,9 +102,33 @@ const SearchShelterPage: React.FC = () => {
         data: shelters,
         error,
         isFetching,
-    } = useFetch<ShelterType[]>(
-        "https://ukraineshelter-app.azurewebsites.net/shelter/list"
+    } = useQuery<ShelterType[]>(
+        "shelters",
+        async () => {
+            const response = await axios.get(
+                "https://ukraineshelter-app.azurewebsites.net/shelter/list"
+            );
+
+            return response.data;
+        },
+        {
+            refetchOnWindowFocus: false,
+        }
     );
+
+    const handleCountryChange = async (event: any, country: string | null) => {
+        if (country) {
+            /*  const response = await axios({
+                method: "get",
+                url: "https://ukraineshelter-app.azurewebsites.net/shelter/list-by-country",
+                headers: {
+                    "Content-Type": "text/plain",
+                },
+                data: country,
+            });
+            queryClient.setQueryData("shelters", response.data); */
+        }
+    };
 
     if (isFetching) {
         return <div>Loading...</div>;
@@ -111,12 +137,6 @@ const SearchShelterPage: React.FC = () => {
     if (!shelters || error) {
         return <div>error</div>;
     }
-
-    const handleCountryChange = (event: any, country: string | null) => {
-        if (country) {
-            console.log(country);
-        }
-    };
 
     return (
         <ShelterPage>
