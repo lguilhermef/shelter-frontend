@@ -23,3 +23,11 @@ code {
     align-items: stretch;  
     width: 100%; 
 }
+
+.shelter-svg-image {
+    display: inline-block;
+    width: 40px;
+    margin: 10px;
+}
+
+.shelter-svg-image > * {width: 100%;}
