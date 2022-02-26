@@ -1,4 +1,4 @@
-import { Autocomplete, Card, CardContent, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Autocomplete, Button, Card, CardContent, Grid, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
@@ -12,6 +12,8 @@ type SearchShelterCardProps = {
 }
 
 const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ children, title, beds = 0 }) => {
+
+    const [canDelete, setCanDelete] = React.useState(false);
 
     return (
         <Card variant="outlined" sx={{ marginTop: "10px", padding: "20px"}}>
@@ -29,6 +31,23 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ children, title, 
                         </ul>
                     </div>
                 </Typography>
+
+                {!canDelete && <Button variant="contained" color="error" onClick={() => { setCanDelete(true); }}>Delete</Button>}
+                {
+                    canDelete &&
+                    <>
+                        <TextField
+                            fullWidth
+                            required
+                            type="number"
+                            placeholder="0000"
+                            label="SecurityCode"
+                            variant="standard"
+                            margin="normal"
+                        />
+                        <Button variant="contained" color="error" onClick={() => { setCanDelete(false); }}>Delete</Button>
+                    </>
+                }
 
             </CardContent>
         </Card>
