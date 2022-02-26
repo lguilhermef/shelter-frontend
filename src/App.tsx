@@ -1,24 +1,25 @@
-import { BrowserRouter, Link, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { AddShelter } from './Views/AddShelter/AddShelter';
+import AddShelterPage from './pages/AddShelter.page';
+import MainPage from "./pages/Main.page";
+import SearchShelterPage from "./pages/SearchShelter.page";
+import MainLayout from "./shared/components/layouts/Main.layout";
 
-function App() {
+const App: React.FC = () => {
 
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <header>
-          Header
-            <Link to={"/add-shelter"}>
-              <button className="headerButton">Add Shlter</button>
-            </Link>
-        </header>
-        Main Page
-      </div>
-      
-      <Route path="/add-shelter" component={() => <AddShelter/>}/>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <MainLayout>
+                <Routes>
+                    {/* <Route element={<MainLayout />}> </Route> */}
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/add-shelter" element={<AddShelterPage />} />
+                    <Route path="/search-shelter" element={<SearchShelterPage />} />
+                </Routes>
+
+            </MainLayout>
+        </BrowserRouter>
+    );
 }
 
 export default App;

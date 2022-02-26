@@ -1,1 +1,0 @@
-export enum ContactType {PHONE = "Phone", WHATSAPP = "WhatsApp", TELEGRAM = "Telegram", VIPER = "Viper"};
