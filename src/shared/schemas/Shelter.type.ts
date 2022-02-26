@@ -1,7 +1,10 @@
 import { ContactType } from "./Contact.type";
 
 export type ShelterType = {
-    location: string,
-    numberOfBeds: number,
-    contactArr: ContactType[]
+    id: number;
+    country: string;
+    city: string;
+    contactArr: ContactType[];
+    numberOfBeds: number;
+    petFriendly: boolean;
 };
