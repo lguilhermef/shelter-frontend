@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Grid, Box, Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import ShelterPage from "../shared/components/partials/ShelterPage.partial";
 
 const MainPage: React.FC = () => {
 
     const navigate = useNavigate();
 
     return (
-        <div className="shelter-page" id="home-page">
+        <ShelterPage>
             <Grid container spacing={2} justifyContent="center" alignItems="center">
                 <Grid item sm={6}>
                     <Box>
@@ -34,7 +35,7 @@ const MainPage: React.FC = () => {
                     </Box>
                 </Grid>
             </Grid>
-        </div>
+        </ShelterPage>
     );
 };
 
