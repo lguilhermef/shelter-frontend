@@ -1,35 +1,34 @@
 import { AppBar, Button, Box, IconButton, Toolbar, Typography, Container } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AppBarTitle: React.FC = ({ children }) => <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>{children}</Typography>;
+const AppBarTitle: React.FC = ({ children }) => {
 
-const AppBarMenuButton: React.FC = () => {
-    return (
-        <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-        >
-            <MenuIcon />
-        </IconButton >
-    );
-};
+    const navigate = useNavigate();
+
+    const onClickHandler = () => {
+        navigate("/");
+    };
+
+    return <Typography onClick={onClickHandler}
+        variant="h6"
+        component="div"
+        sx={{ flexGrow: 1, cursor: "pointer" }}>
+        {children}
+    </Typography>;
+}
 
 const MainLayout: React.FC = ({children}) => {
 
     const navigate = useNavigate();
+
     return (
-        <Box>
-            <AppBar color="transparent" position="relative">
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "stretch", height: "100vh" }}>
+            <AppBar sx={{ backgroundColor: "white" }} color="transparent" position="relative">
                 <Container>
                     <Toolbar>
-                        {/* <AppBarMenuButton /> */}
                         <AppBarTitle>ShelterUkranians</AppBarTitle>
                         <Button onClick={ () => { navigate("search-shelter"); }}
                             sx={{ marginRight: "10px"}}
@@ -47,8 +46,7 @@ const MainLayout: React.FC = ({children}) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Container fixed>
-                {/* <Outlet /> */}
+            <Container className="shelter-main-container" fixed>
                 {children}
             </Container>
         </Box>

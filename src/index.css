@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.shelter-main-container {
+    display: flex !important;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.shelter-page {
+    display: flex;
+    align-items: stretch;   
+    width: 100%; 
+}
