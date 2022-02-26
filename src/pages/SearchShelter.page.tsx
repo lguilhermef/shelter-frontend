@@ -35,6 +35,15 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({
 }) => {
     const [canDelete, setCanDelete] = React.useState(false);
 
+    const handleDelete = () => {
+        axios.delete(
+            "https://ukraineshelter-app.azurewebsites.net/shelter/delete",
+            {}
+        );
+
+        queryClient.refetchQueries("shelters");
+    };
+
     return (
         <Card variant="outlined" sx={{ marginTop: "10px", padding: "20px" }}>
             <CardContent>
@@ -134,7 +143,18 @@ const SearchShelterPage: React.FC = () => {
         return <div>error</div>;
     }
 
-    const countries = shelters.map((shelter) => shelter.country);
+    const countries = () => {
+        var arr: string[] = [];
+
+        shelters.forEach((shelter) => {
+            var i = arr.findIndex((x) => x === shelter.country);
+
+            if (i <= -1) {
+                arr.push(shelter.country);
+            }
+        });
+        return arr;
+    };
 
     return (
         <ShelterPage>
@@ -150,7 +170,7 @@ const SearchShelterPage: React.FC = () => {
                     <Autocomplete
                         fullWidth
                         disablePortal
-                        options={countries}
+                        options={countries()}
                         onChange={handleCountryChange}
                         renderInput={(params) => (
                             <TextField {...params} label="Country" />

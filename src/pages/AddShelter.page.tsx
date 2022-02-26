@@ -149,9 +149,9 @@ const AddShelter: React.FC = () => {
                                         label="Contact Type"
                                         {...field}
                                     >
-                                        {Object.keys(ContactEnum).map(
+                                        {Object.values(ContactEnum).map(
                                             (contact) => (
-                                                <MenuItem value={"WhatsApp"}>
+                                                <MenuItem value={contact}>
                                                     {contact}
                                                 </MenuItem>
                                             )

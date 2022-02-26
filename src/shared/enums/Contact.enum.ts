@@ -2,7 +2,7 @@ enum ContactEnum {
     PHONE = "Phone",
     WHATSAPP = "WhatsApp",
     TELEGRAM = "Telegram",
-    VIPER = "Viper"
-};
+    VIBER = "Viber",
+}
 
 export default ContactEnum;
