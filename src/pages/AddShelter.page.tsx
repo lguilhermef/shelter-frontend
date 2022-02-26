@@ -1,4 +1,4 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { Checkbox, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import React from "react";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
@@ -19,25 +19,23 @@ const AddShelter: React.FC = () => {
 
                 <Grid item>
                     <FormSectionTitle>Location</FormSectionTitle>
-                    <Grid container spacing={2}>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                required
-                                label="City"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                required
-                                label="Country"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
+                    <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            required
+                            label="City"
+                            variant="standard"
+                            margin="normal"
+                        />
+                    </Grid>
+                    <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            required
+                            label="Country"
+                            variant="standard"
+                            margin="normal"
+                        />
                     </Grid>
                 </Grid>
                 <br />
@@ -55,41 +53,37 @@ const AddShelter: React.FC = () => {
                 <br />
                 <Grid item>
                     <FormSectionTitle>Contacts</FormSectionTitle>
-                    <Grid container spacing={2}>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                label="WhatsApp"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                label="Viber"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                label="Telegram"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
-                        <Grid item sm={6}>
-                            <TextField
-                                fullWidth
-                                required
-                                label="Email"
-                                variant="standard"
-                                margin="normal"
-                            />
-                        </Grid>
+                    <FormSectionDescription>Add at least one of the contact to be available</FormSectionDescription>
+                    <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            label="WhatsApp"
+                            variant="standard"
+                            margin="normal"
+                        />
                     </Grid>
+                    <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            label="Viber"
+                            variant="standard"
+                            margin="normal"
+                        />
+                    </Grid>
+                    <Grid item sm={12}>
+                        <TextField
+                            fullWidth
+                            label="Telegram"
+                            variant="standard"
+                            margin="normal"
+                        />
+                    </Grid>
+                </Grid>
+                <br />
+                <Grid item>
+                    <FormGroup>
+                        <FormControlLabel control={<Checkbox />} label="Accept animals transportation" />
+                    </FormGroup>
                 </Grid>
                 <br />
                 <Grid item>
