@@ -2,7 +2,6 @@ import {
     AppBar,
     Button,
     Box,
-    IconButton,
     Toolbar,
     Typography,
     Container,
@@ -11,28 +10,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
-const AppBarTitle: React.FC = ({ children }) => {
-    const navigate = useNavigate();
-
-    const onClickHandler = () => {
-        navigate("/");
-    };
-
-    return (
-        <Typography
-            onClick={onClickHandler}
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, cursor: "pointer" }}
-        >
-            {children}
-        </Typography>
-    );
-};
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const MainLayout: React.FC = ({ children }) => {
     const navigate = useNavigate();
+    const isMobileScreen = useMediaQuery("(max-width:575px)");
 
     return (
         <Box
@@ -48,28 +30,45 @@ const MainLayout: React.FC = ({ children }) => {
                 color="transparent"
                 position="relative"
             >
-                <Container>
-                    <Toolbar>
+                <Toolbar
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        onClick={() => {
+                            navigate("/");
+                        }}
+                    >
                         <img
                             height={60}
                             src="/shelteruktranians_original2.svg"
                             alt="logo"
-                            style={{ marginRight: "10px", cursor: "pointer" }}
-                            onClick={() => {
-                                navigate("");
-                            }}
+                            style={{ margin: "5px", cursor: "pointer" }}
                         />
-                        <AppBarTitle>Shelter Ukrainians</AppBarTitle>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ flexGrow: 1, cursor: "pointer" }}
+                        >
+                            Shelter Ukrainians
+                        </Typography>
+                    </Box>
+                    <Box
+                        display="flex"
+                        flexDirection={isMobileScreen ? "column" : "row"}
+                    >
                         <Button
                             onClick={() => {
                                 navigate("search-shelter");
                             }}
-                            sx={{ marginRight: "10px" }}
+                            sx={{ margin: "5px", minWidth: "95px" }}
                             startIcon={<SearchIcon />}
                             variant="contained"
                             color="error"
                         >
-                            Search Shelter
+                            Shelter
                         </Button>
                         <Button
                             onClick={() => {
@@ -78,11 +77,12 @@ const MainLayout: React.FC = ({ children }) => {
                             startIcon={<AddIcon />}
                             variant="contained"
                             color="success"
+                            sx={{ margin: "5px", minWidth: "95px" }}
                         >
-                            Add Shelter
+                            Shelter
                         </Button>
-                    </Toolbar>
-                </Container>
+                    </Box>
+                </Toolbar>
             </AppBar>
             <Container className="shelter-main-container" fixed>
                 {children}
