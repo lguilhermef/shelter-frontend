@@ -136,6 +136,23 @@ const AddShelter: React.FC = () => {
                             Add at least one of the contact to be available
                         </FormSectionDescription>
                         <FormControl fullWidth>
+                            <Controller
+                                control={control}
+                                name="contact.number"
+                                render={({ field }) => (
+                                    <TextField
+                                        fullWidth
+                                        required
+                                        type="text"
+                                        label="Phone Number"
+                                        variant="standard"
+                                        margin="normal"
+                                        {...field}
+                                    />
+                                )}
+                            />
+                        </FormControl>
+                        <FormControl fullWidth>
                             <InputLabel>Contact Type</InputLabel>
                             <Controller
                                 control={control}
@@ -168,7 +185,7 @@ const AddShelter: React.FC = () => {
                                         fullWidth
                                         required
                                         type="text"
-                                        label="Number"
+                                        label="Adicional Contact"
                                         variant="standard"
                                         margin="normal"
                                         {...field}
