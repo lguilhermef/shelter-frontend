@@ -65,6 +65,8 @@ const AddShelter: React.FC = () => {
             "https://ukraineshelter-app.azurewebsites.net/shelter/add",
             data
         );
+
+        navigate("/search-shelter");
     };
 
     return (
