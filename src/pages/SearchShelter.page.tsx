@@ -17,6 +17,7 @@ import { ShelterType } from "../shared/schemas/Shelter.type";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { queryClient } from "../services/queryClient";
+import Loader from "../shared/components/atoms/Loader.atom";
 
 type SearchShelterCardProps = {
     shelter: ShelterType;
@@ -115,7 +116,7 @@ const SearchShelterPage: React.FC = () => {
     };
 
     if (isFetching) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     if (!shelters || error) {
