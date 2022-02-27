@@ -160,7 +160,10 @@ const SearchShelterPage: React.FC = () => {
                 <Grid item>
                     <Stack>
                         {shelters.map((shelter) => (
-                            <SearchShelterCard shelter={shelter} />
+                            <SearchShelterCard
+                                shelter={shelter}
+                                key={shelter.id}
+                            />
                         ))}
                     </Stack>
                 </Grid>

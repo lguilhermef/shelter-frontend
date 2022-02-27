@@ -44,19 +44,7 @@ type NewShelter = {
 
 const AddShelter: React.FC = () => {
     const navigate = useNavigate();
-    const { control, handleSubmit } = useForm<NewShelter>({
-        defaultValues: {
-            country: "",
-            city: "",
-            contact: {
-                number: "",
-                contactType: "",
-            },
-            numberOfBeds: 0,
-            securityCode: 0,
-            petFriendly: false,
-        },
-    });
+    const { control, handleSubmit } = useForm<NewShelter>();
 
     const onSubmit = async (data: NewShelter) => {
         await axios.post(
@@ -66,6 +54,10 @@ const AddShelter: React.FC = () => {
 
         navigate("/search-shelter");
     };
+
+    const contactTypes = Object.values(ContactEnum).map(
+        (contactType) => contactType
+    );
 
     return (
         <ShelterPage>
@@ -143,16 +135,20 @@ const AddShelter: React.FC = () => {
                             <Controller
                                 control={control}
                                 name="contact.contactType"
+                                defaultValue={contactTypes[0]}
                                 render={({ field }) => (
                                     <Select
                                         labelId="contactType"
                                         label="Contact Type"
                                         {...field}
                                     >
-                                        {Object.values(ContactEnum).map(
-                                            (contact) => (
-                                                <MenuItem value={contact}>
-                                                    {contact}
+                                        {contactTypes.map(
+                                            (contactType, index) => (
+                                                <MenuItem
+                                                    value={contactType}
+                                                    key={index}
+                                                >
+                                                    {contactType}
                                                 </MenuItem>
                                             )
                                         )}
@@ -211,6 +207,9 @@ const AddShelter: React.FC = () => {
                                     label="SecurityCode"
                                     variant="standard"
                                     margin="normal"
+                                    inputProps={{
+                                        maxLength: 4,
+                                    }}
                                     {...field}
                                 />
                             )}
