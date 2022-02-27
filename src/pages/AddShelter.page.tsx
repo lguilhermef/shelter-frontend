@@ -58,10 +58,8 @@ const AddShelter: React.FC = () => {
         },
     });
 
-    const onSubmit = (data: NewShelter) => {
-        console.log(data);
-
-        axios.post(
+    const onSubmit = async (data: NewShelter) => {
+        await axios.post(
             "https://ukraineshelter-app.azurewebsites.net/shelter/add",
             data
         );

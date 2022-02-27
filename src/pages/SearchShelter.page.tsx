@@ -19,26 +19,21 @@ import axios from "axios";
 import { queryClient } from "../services/queryClient";
 
 type SearchShelterCardProps = {
-    title: string;
-    children?: React.ReactNode;
-    beds: number;
-    contact: ContactType;
-    petFriendly: boolean;
+    shelter: ShelterType;
 };
 
-const SearchShelterCard: React.FC<SearchShelterCardProps> = ({
-    children,
-    title,
-    beds,
-    contact,
-    petFriendly,
-}) => {
-    const [canDelete, setCanDelete] = React.useState(false);
+const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ shelter }) => {
+    const [code, setCode] = useState<string>();
 
-    const handleDelete = () => {
-        axios.delete(
+    const handleDelete = async () => {
+        await axios.delete(
             "https://ukraineshelter-app.azurewebsites.net/shelter/delete",
-            {}
+            {
+                data: {
+                    ...shelter,
+                    securityCode: code,
+                },
+            }
         );
 
         queryClient.refetchQueries("shelters");
@@ -48,59 +43,43 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({
         <Card variant="outlined" sx={{ marginTop: "10px", padding: "20px" }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {title}
+                    {`${shelter.country} - ${shelter.city}`}
                 </Typography>
                 <Typography paragraph>
-                    <strong>Number of beds:</strong> {beds}
+                    <strong>Number of beds:</strong> {shelter.numberOfBeds}
                 </Typography>
                 <Typography paragraph>
                     <strong>
-                        Accepts animals: {petFriendly ? "Yes" : "No"}
+                        Accepts animals: {shelter.petFriendly ? "Yes" : "No"}
                     </strong>
                     <div>
                         <strong>Contact: </strong>
                         <ul>
-                            <li key={contact.id}>
-                                <strong>{contact.contactType}: </strong>
-                                {contact.number}
+                            <li key={shelter.contact.id}>
+                                <strong>{shelter.contact.contactType}: </strong>
+                                {shelter.contact.number}
                             </li>
                         </ul>
                     </div>
                 </Typography>
-
-                {!canDelete && (
-                    <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => {
-                            setCanDelete(true);
-                        }}
-                    >
-                        Delete
-                    </Button>
-                )}
-                {canDelete && (
-                    <>
-                        <TextField
-                            fullWidth
-                            required
-                            type="number"
-                            placeholder="0000"
-                            label="SecurityCode"
-                            variant="standard"
-                            margin="normal"
-                        />
-                        <Button
-                            variant="contained"
-                            color="error"
-                            onClick={() => {
-                                setCanDelete(false);
-                            }}
-                        >
-                            Delete
-                        </Button>
-                    </>
-                )}
+                <TextField
+                    fullWidth
+                    required
+                    type="number"
+                    placeholder="0000"
+                    label="SecurityCode"
+                    variant="standard"
+                    margin="normal"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                />
+                <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleDelete}
+                >
+                    Delete
+                </Button>
             </CardContent>
         </Card>
     );
@@ -181,13 +160,7 @@ const SearchShelterPage: React.FC = () => {
                 <Grid item>
                     <Stack>
                         {shelters.map((shelter) => (
-                            <SearchShelterCard
-                                title={`${shelter.country} - ${shelter.city}`}
-                                beds={shelter.numberOfBeds}
-                                key={shelter.id}
-                                contact={shelter.contact}
-                                petFriendly={shelter.petFriendly}
-                            ></SearchShelterCard>
+                            <SearchShelterCard shelter={shelter} />
                         ))}
                     </Stack>
                 </Grid>
