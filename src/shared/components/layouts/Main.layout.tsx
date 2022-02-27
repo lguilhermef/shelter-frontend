@@ -54,7 +54,10 @@ const MainLayout: React.FC = ({ children }) => {
                             height={60}
                             src="/shelteruktranians_original2.svg"
                             alt="logo"
-                            style={{ marginRight: "10px" }}
+                            style={{ marginRight: "10px", cursor: "pointer" }}
+                            onClick={() => {
+                                navigate("");
+                            }}
                         />
                         <AppBarTitle>Shelter Ukrainians</AppBarTitle>
                         <Button

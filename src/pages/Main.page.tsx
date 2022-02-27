@@ -22,12 +22,23 @@ const MainPage: React.FC = () => {
                             onClick={() => {
                                 navigate("search-shelter");
                             }}
-                            sx={{ marginRight: "10px" }}
+                            sx={{ marginRight: "10px", marginBottom: "10px" }}
                             startIcon={<SearchIcon />}
                             variant="contained"
                             color="error"
                         >
                             Search Shelter
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                navigate("search-shelter");
+                            }}
+                            sx={{ marginRight: "10px", marginBottom: "10px" }}
+                            startIcon={<SearchIcon />}
+                            variant="contained"
+                            color="error"
+                        >
+                            Пошук притулку
                         </Button>
                     </Box>
                 </Grid>
@@ -39,9 +50,21 @@ const MainPage: React.FC = () => {
                             }}
                             startIcon={<AddIcon />}
                             variant="contained"
+                            sx={{ marginRight: "10px", marginBottom: "10px" }}
                             color="success"
                         >
                             Add Shelter
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                navigate("add-shelter");
+                            }}
+                            startIcon={<AddIcon />}
+                            variant="contained"
+                            sx={{ marginRight: "10px", marginBottom: "10px" }}
+                            color="success"
+                        >
+                            Додати укриття
                         </Button>
                     </Box>
                 </Grid>
