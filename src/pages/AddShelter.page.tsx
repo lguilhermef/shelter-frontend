@@ -1,4 +1,5 @@
 import {
+    Alert,
     Button,
     Checkbox,
     FormControl,
@@ -11,7 +12,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
@@ -45,14 +46,18 @@ type NewShelter = {
 const AddShelter: React.FC = () => {
     const navigate = useNavigate();
     const { control, handleSubmit } = useForm<NewShelter>();
+    const [error, setError] = useState<boolean>(false);
 
     const onSubmit = async (data: NewShelter) => {
-        await axios.post(
-            "https://ukraineshelter-app.azurewebsites.net/shelter/add",
-            data
-        );
-
-        navigate("/search-shelter");
+        await axios
+            .post(
+                "https://ukraineshelter-app.azurewebsites.net/shelter/add",
+                data
+            )
+            .then(() => {
+                navigate("/search-shelter");
+            })
+            .catch((error) => setError(true));
     };
 
     const contactTypes = Object.values(ContactEnum).map(
@@ -217,12 +222,18 @@ const AddShelter: React.FC = () => {
                     </Grid>
                     <br />
                     <br />
+                    {error && (
+                        <Alert severity="error" style={{ marginBottom: "1em" }}>
+                            Error - Something went wrong
+                        </Alert>
+                    )}
                     <Button
                         startIcon={<AddIcon />}
                         variant="contained"
                         color="success"
                         style={{ marginBottom: "1em" }}
                         type="submit"
+                        fullWidth
                     >
                         Add Shelter
                     </Button>

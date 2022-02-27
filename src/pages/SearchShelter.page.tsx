@@ -26,7 +26,9 @@ type SearchShelterCardProps = {
 const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ shelter }) => {
     const [code, setCode] = useState<string>();
 
-    const handleDelete = async () => {
+    const handleDelete = async (e: React.FormEvent) => {
+        e.preventDefault();
+
         await axios.delete(
             "https://ukraineshelter-app.azurewebsites.net/shelter/delete",
             {
@@ -43,44 +45,45 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ shelter }) => {
     return (
         <Card variant="outlined" sx={{ marginTop: "10px", padding: "20px" }}>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {`${shelter.country} - ${shelter.city}`}
-                </Typography>
-                <Typography paragraph>
-                    <strong>Number of beds:</strong> {shelter.numberOfBeds}
-                </Typography>
-                <Typography paragraph>
-                    <strong>
-                        Accepts animals: {shelter.petFriendly ? "Yes" : "No"}
-                    </strong>
-                    <div>
-                        <strong>Contact: </strong>
-                        <ul>
-                            <li key={shelter.contact.id}>
-                                <strong>{shelter.contact.contactType}: </strong>
-                                {shelter.contact.number}
-                            </li>
-                        </ul>
-                    </div>
-                </Typography>
-                <TextField
-                    fullWidth
-                    required
-                    type="number"
-                    placeholder="0000"
-                    label="SecurityCode"
-                    variant="standard"
-                    margin="normal"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                />
-                <Button
-                    variant="contained"
-                    color="error"
-                    onClick={handleDelete}
-                >
-                    Delete
-                </Button>
+                <form action="submit" onSubmit={handleDelete}>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {`${shelter.country} - ${shelter.city}`}
+                    </Typography>
+                    <Typography paragraph>
+                        <strong>Number of beds:</strong> {shelter.numberOfBeds}
+                    </Typography>
+                    <Typography paragraph>
+                        <strong>
+                            Accepts animals:
+                            {shelter.petFriendly ? "Yes" : "No"}
+                        </strong>
+                        <div>
+                            <strong>Contact: </strong>
+                            <ul>
+                                <li key={shelter.contact.id}>
+                                    <strong>
+                                        {shelter.contact.contactType}:
+                                    </strong>
+                                    {shelter.contact.number}
+                                </li>
+                            </ul>
+                        </div>
+                    </Typography>
+                    <TextField
+                        fullWidth
+                        required
+                        type="number"
+                        placeholder="0000"
+                        label="SecurityCode"
+                        variant="standard"
+                        margin="normal"
+                        value={code}
+                        onChange={(e) => setCode(e.target.value)}
+                    />
+                    <Button type="submit" variant="contained" color="error">
+                        Delete
+                    </Button>
+                </form>
             </CardContent>
         </Card>
     );
