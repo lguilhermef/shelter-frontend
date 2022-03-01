@@ -14,7 +14,6 @@ import React, { useState } from "react";
 import ShelterPageDescription from "../shared/components/atoms/ShelterPageDescription.atom";
 import ShelterPageTitle from "../shared/components/atoms/ShelterPageTitle.atom";
 import ShelterPage from "../shared/components/partials/ShelterPage.partial";
-import { ContactType } from "../shared/schemas/Contact.type";
 import { ShelterType } from "../shared/schemas/Shelter.type";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -171,7 +170,7 @@ const SearchShelterPage: React.FC = () => {
                             />
                         </Grid>
 
-                        <Grid item>
+                        <Grid item marginTop="16px">
                             <Stack>
                                 {shelters.map((shelter) => (
                                     <SearchShelterCard
