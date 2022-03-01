@@ -1,9 +1,11 @@
 import {
     Autocomplete,
+    Box,
     Button,
     Card,
     CardContent,
     Grid,
+    Paper,
     Stack,
     TextField,
     Typography,
@@ -43,7 +45,13 @@ const SearchShelterCard: React.FC<SearchShelterCardProps> = ({ shelter }) => {
     };
 
     return (
-        <Card variant="outlined" sx={{ marginTop: "10px", padding: "20px" }}>
+        <Card
+            variant="outlined"
+            sx={{
+                marginTop: "8px",
+                padding: "16px",
+            }}
+        >
             <CardContent>
                 <form action="submit" onSubmit={handleDelete}>
                     <Typography gutterBottom variant="h5" component="div">
@@ -149,28 +157,32 @@ const SearchShelterPage: React.FC = () => {
                     </ShelterPageDescription>
                 </Grid>
 
-                <Grid item>
-                    <Autocomplete
-                        fullWidth
-                        disablePortal
-                        options={countries()}
-                        onChange={handleCountryChange}
-                        renderInput={(params) => (
-                            <TextField {...params} label="Country" />
-                        )}
-                    />
-                </Grid>
-
-                <Grid item>
-                    <Stack>
-                        {shelters.map((shelter) => (
-                            <SearchShelterCard
-                                shelter={shelter}
-                                key={shelter.id}
+                <Paper elevation={6}>
+                    <Box sx={{ margin: "8px", padding: "16px" }}>
+                        <Grid item>
+                            <Autocomplete
+                                fullWidth
+                                disablePortal
+                                options={countries()}
+                                onChange={handleCountryChange}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Country" />
+                                )}
                             />
-                        ))}
-                    </Stack>
-                </Grid>
+                        </Grid>
+
+                        <Grid item>
+                            <Stack>
+                                {shelters.map((shelter) => (
+                                    <SearchShelterCard
+                                        shelter={shelter}
+                                        key={shelter.id}
+                                    />
+                                ))}
+                            </Stack>
+                        </Grid>
+                    </Box>
+                </Paper>
             </Grid>
         </ShelterPage>
     );
